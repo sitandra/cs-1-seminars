@@ -11,3 +11,5 @@ while (!int.TryParse(Console.ReadLine(), out userNumber2))
 }
 Console.Write("max = ");
 Console.Write(Math.Max(userNumber1, userNumber2));
+Console.Write(", min = ");
+Console.Write(Math.Min(userNumber1, userNumber2));
