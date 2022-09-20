@@ -31,9 +31,16 @@ int? getDigitFromNumberOnPosition(int number, int digitPosition)
     }
     return digit;
 }
+int? getDigitFromNumberOnPositionVar2(int number, int digitPosition)
+{
+    int numberAbs = Math.Abs(number);
+    int numberLength = numberAbs.ToString().Length;
+    int multiplier = Convert.ToInt32(Math.Pow(10, numberLength - digitPosition + 1));
+    return digitPosition <= numberLength && digitPosition > 1 ? numberAbs % multiplier * 10 / multiplier : null;
+}
 int number = getReadLineNumber("Введите число");
 int digitPosition = 2;
-int? digit = getDigitFromNumberOnPosition(number, digitPosition);
+int? digit = getDigitFromNumberOnPositionVar2(number, digitPosition);
 if (digit == null)
 {
     Console.WriteLine($"В числе {number} нет цифры в позиции {digitPosition}");
