@@ -25,8 +25,8 @@ int? getDigitFromNumberOnPosition(int number, int digitPosition)
         while (currentPosition <= digitPosition)
         {
             digit = numberAbs % 10;
-            numberAbs = numberAbs / 10;
-            currentPosition ++;
+            numberAbs /= 10;
+            currentPosition++;
         }
     }
     return digit;
@@ -35,8 +35,13 @@ int? getDigitFromNumberOnPositionVar2(int number, int digitPosition)
 {
     int numberAbs = Math.Abs(number);
     int numberLength = numberAbs.ToString().Length;
-    int multiplier = Convert.ToInt32(Math.Pow(10, numberLength - digitPosition + 1));
-    return digitPosition <= numberLength && digitPosition > 1 ? numberAbs % multiplier * 10 / multiplier : null;
+    int? digit = null;
+    if (digitPosition <= numberLength && digitPosition > 1)
+    {
+        int multiplier = Convert.ToInt32(Math.Pow(10, numberLength - digitPosition + 1));
+        digit = numberAbs % multiplier * 10 / multiplier;
+    }
+    return digit;
 }
 int number = getReadLineNumber("Введите число");
 int digitPosition = 2;
