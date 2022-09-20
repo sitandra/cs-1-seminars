@@ -12,7 +12,7 @@ int getReadLineWeekDayNumber()
     Console.Write($"{message}: ");
     while (!int.TryParse(Console.ReadLine(), out number) || number < 1 || number > 7)
     {
-        Console.Write($"Нет! {message}: ");
+        Console.Write($"Ошибка ввода! {message}: ");
     }
     return number;
 }
