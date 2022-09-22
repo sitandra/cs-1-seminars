@@ -18,7 +18,15 @@ int getNumberFromUser(string userInformation)
 
 bool isPalindrome(int number)
 {
-    return number/1000 == number%10 * 10 + number%100 / 10;
+    // return number/1000 == number%10 * 10 + number%100 / 10; // частный случай
+    int numberTemp = number;
+    int numberInvers = 0;
+    while (numberTemp != 0)
+    {
+        numberInvers = numberInvers * 10 + numberTemp % 10;
+        numberTemp /= 10;
+    }
+    return number == numberInvers;
 }
 
 int userNumber = getNumberFromUser("Введите число");
