@@ -20,10 +20,11 @@ int CountDigits(int number)
     number = Math.Abs(number);
     while (number != 0)
     {
-        count ++;
+        count++;
         number /= 10;
     }
-    return count;
+    return number == 0 ? 1 : count;
+    //return number == 0 ? 1 : (int)Math.Log10(Math.Abs(number)) + 1;
 }
 
 int number = GetNumberFromUser("Введите число");
