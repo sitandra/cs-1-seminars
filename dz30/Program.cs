@@ -34,7 +34,12 @@ int GetNaturalNumberFromUser(string userInformation)
 
 int GetPow(int number, int degree)
 {
-    return (int)Math.Pow((int)number, (int)degree);
+    int result = number;
+    for (int i = 1; i < degree; i++)
+    {
+        result *= number;
+    }
+    return result;
 }
 
 int number = GetNumberFromUser("Введите число A");
