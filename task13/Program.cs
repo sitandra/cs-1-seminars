@@ -3,7 +3,7 @@
 
 int getNumberFromUser(string userInformation)
 {
-    int result = 0;
+    int result;
     Console.Write($"{userInformation} ");
     while (!int.TryParse(Console.ReadLine(), out result) || result <= 1)
     {
