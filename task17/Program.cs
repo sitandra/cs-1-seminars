@@ -19,7 +19,8 @@ void PrintArray(byte[] array)
         Console.Write(i == 0 ? "" : ", ");
         Console.Write($"{array[i]}");
     }
-    Console.Write("]");
+    Console.WriteLine("]");
+    Console.WriteLine();
 }
 
 PrintArray(InitBoolArray(8));
