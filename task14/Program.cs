@@ -3,21 +3,29 @@
 4 -> 10
 8 -> 36 */
 
+void PrintInConsoleWithColor(string message, ConsoleColor color)
+{
+    Console.ForegroundColor = color;
+    Console.Write(message);
+    Console.ResetColor();
+}
+
 int GetNumberFromUser(string userInformation)
 {
     int result;
-    Console.Write($"{userInformation}: ");
+    PrintInConsoleWithColor($"{userInformation}: ", ConsoleColor.DarkBlue);
     while (!int.TryParse(Console.ReadLine(), out result) || result < 1)
     {
-        Console.Write($"Ошибка ввода! Ожидается целое число больше нуля. {userInformation}: ");
+        PrintInConsoleWithColor($"Ошибка ввода! Ожидается целое число больше нуля. {userInformation}: ", ConsoleColor.DarkYellow);
     }
     return result;
 }
 
-int Sum(int number)
+int GetSumOfRange(int startNumber, int endNumber)
 {
-    int result = 1;
-    for (int i = 2; i <= number; i++)
+    int result = Math.Min(startNumber, endNumber);
+    int max = Math.Max(startNumber, endNumber);
+    for (int i = result + 1; i <= max; i++)
     {
         result += i;
     }
@@ -25,4 +33,4 @@ int Sum(int number)
 }
 
 int number = GetNumberFromUser("Введите число A");
-Console.WriteLine($"{number} -> {Sum(number)}");
+Console.WriteLine($"{number} -> {GetSumOfRange(1, number)}");
