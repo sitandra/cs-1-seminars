@@ -2,7 +2,7 @@
 [-4, -8, 8, 2] -> [4, 8, -8, -2]
  */
 
- int[] InitRandomArray(int length, int start, int end)
+int[] InitRandomArray(int length, int start, int end)
 {
     int[] result = new int[length];
     for (int i = 0; i < length; i++)
