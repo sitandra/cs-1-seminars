@@ -44,9 +44,10 @@ int GetNumberFromUser(string userInformation)
 
 bool IsExistsInArray(int[] numbers, int number)
 {
+    number = Math.Abs(number);
     for (int i = 0; i < numbers.Length; i++)
     {
-        if (numbers[i] == number) return true;
+        if (Math.Abs(numbers[i]) == number) return true;
     }
     return false;
 }
