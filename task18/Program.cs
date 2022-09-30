@@ -33,10 +33,23 @@ void InitSum(int[] numbers, out int negativeNumbersSum, out int positiveNumbersS
     }
 }
 
+// diviation = -1 or 1
+int GetSumOnDeviation(int[] numbers, int sign)
+{
+    int sum = 0;
+    for (int i = 0; i < numbers.Length; i++)
+    {
+        if (numbers[i] * sign > 0) sum += numbers[i];
+    }
+    return sum;
+}
+
 int[] numbers = InitRandomArray(12, -9, 9);
 int negativeNumbersSum;
 int positiveNumbersSum;
 InitSum(numbers, out negativeNumbersSum, out positiveNumbersSum);
+int negativeNumbersSum2 = GetSumOnDeviation(numbers, -1);
+int positiveNumbersSum2 = GetSumOnDeviation(numbers, 1);
 PrintArray(numbers);
-Console.WriteLine($"Сумма положительных чисел = {positiveNumbersSum}");
-Console.WriteLine($"Сумма отрицательных чисел = {negativeNumbersSum}");
+Console.WriteLine($"Сумма отрицательных чисел = {negativeNumbersSum} | {negativeNumbersSum}");
+Console.WriteLine($"Сумма положительных чисел = {positiveNumbersSum} | {positiveNumbersSum}");
