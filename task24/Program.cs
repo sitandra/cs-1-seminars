@@ -19,14 +19,14 @@ double GetNumberFromUser(string userInformation)
     return result;
 }
 
-double SumWithoutNumber(double[] numbers, int exclusionIndex)
+bool CheckFigureSide(double[] numbers, int sideIndex)
 {
-    double result = 0;
+    double sum = 0;
     for (int i = 0; i < numbers.Length; i++)
     {
-        if (i != exclusionIndex) result += numbers[i];
+        if (i != sideIndex) sum += numbers[i];
     }
-    return result;
+    return sum > numbers[sideIndex];
 }
 
 bool CheckFigure(double[] figureSides)
@@ -34,7 +34,7 @@ bool CheckFigure(double[] figureSides)
     bool result = true;
     for (int i = 0; i < figureSides.Length; i++)
     {
-        result = result && SumWithoutNumber(figureSides, i) > figureSides[i];
+        result = result && CheckFigureSide(figureSides, i);
     }
     return result;
 }
