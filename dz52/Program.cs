@@ -1,5 +1,5 @@
 ﻿/* Задача (сложная не на оценку)*
-Напишите программу, котрая находит подмножество данного множества чисел такое, что сумма его элементов равна заданному числу */
+Напишите программу, которая находит подмножество данного множества чисел такое, что сумма его элементов равна заданному числу */
 
 void PrintInConsoleWithColor(string message, ConsoleColor color)
 {
@@ -34,15 +34,14 @@ int[] InitRandomNumbersSet(int setLength, int minNumber, int maxNumber)
     return result;
 }
 
-void PrintArray(int[] array, bool newLine = true)
+void PrintArray(int[] array)
 {
-    Console.Write($"[{array[0]}");
+    Console.Write($"{{{array[0]}");
     for (int i = 1; i < array.Length; i++)
     {
         Console.Write($", {array[i]}");
     }
-    if (newLine) Console.WriteLine("]");
-    else Console.Write("]");
+    Console.WriteLine("}");
 }
 
 void PrintSubsets(List<List<int>> subsets)
@@ -89,37 +88,27 @@ void SortSet(int[] numbers)
     }
 }
 
-void AddSubsetsSkeletonLayer(List<int>[] subsets, int numbersLength, int leftBorder, int rightBorder)
-{ // Добавляем слой подмножеств
-    int newLeftBorder = rightBorder;
-    int index = rightBorder;
-    for (int i = leftBorder; i < rightBorder; i++)
+void FindSubsetsBySumInLayer(List<int> subset, int[] numbers, List<List<int>> foundSubsets, int sum)
+{
+    if (GetNumbersSumByIndexes(numbers, subset) == sum)
     {
-        int start = subsets[i][^1] + 1;
-        for (int j = start; j < numbersLength; j++)
-        {
-            subsets[index] = new(subsets[i]) { j };
-            index++;
-        }
+        foundSubsets.Add(GetSubsetByIndexes(numbers, subset));
     }
-    if (subsets[index - 1].Count != numbersLength)
+    int start = subset[^1] + 1;
+    for (int j = start; j < numbers.Length; j++)
     {
-        AddSubsetsSkeletonLayer(subsets, numbersLength, newLeftBorder, index);
+        FindSubsetsBySumInLayer(new(subset) { j }, numbers, foundSubsets, sum);
     }
 }
 
-List<int>[] GetSubsetsSkeleton(int[] numbers)
+List<List<int>> FindSubsetsBySum(int[] numbers, int sum)
 {
-    List<int>[] subsets = new List<int>[(int)Math.Pow(2, numbers.Length) - 1]; // Пустое множество нас не интересует, поэтому -1
+    List<List<int>> foundSubsets = new();
     for (int i = 0; i < numbers.Length; i++)
     {
-        subsets[i] = new List<int>() { i };
+        FindSubsetsBySumInLayer(new List<int>() { i }, numbers, foundSubsets, sum);
     }
-    if (numbers.Length > 1)
-    {
-        AddSubsetsSkeletonLayer(subsets, numbers.Length, 0, numbers.Length);
-    }
-    return subsets;
+    return foundSubsets;
 }
 
 List<int> GetSubsetByIndexes(int[] numbersSet, List<int> indexes)
@@ -132,37 +121,23 @@ List<int> GetSubsetByIndexes(int[] numbersSet, List<int> indexes)
     return result;
 }
 
-List<List<int>> GetSubsetsBySum(int[] numbers, int sum)
-{
-    List<List<int>> setsBySum = new();
-    List<int>[] subsets = GetSubsetsSkeleton(numbers);
-    foreach (List<int> subset in subsets)
-    {
-        if (GetNumbersSumByIndexes(numbers, subset) == sum)
-        {
-            setsBySum.Add(GetSubsetByIndexes(numbers, subset));
-        }
-    }
-    return setsBySum;
-}
+// Осторожно! Проверок будет 2^|N|, где N – мощность множества. На больших множествах программа будет долго висеть.
+// Внимание! InitRandomNumbersSet() уйдет в себя, если не сможет сгенерировать N уникальных элементов, поэтому диапазон должен быть указан достаточный
+int[] set = InitRandomNumbersSet(10, -10, 10);
 
-int[] set = InitRandomNumbersSet(50, -100, 100);
-//var sortedset = set.OrderBy(n=>n).ToArray();
+PrintInConsoleWithColor($"Дано множество: ", ConsoleColor.DarkBlue);
 PrintArray(set);
 int sum = GetNumberFromUser("Введите число");
-SortSet(set);
-PrintArray(set);
-List<List<int>> subsets = GetSubsetsBySum(set, sum);
+SortSet(set); // Чтобы подмножества выводились симпатично
+List<List<int>> subsets = FindSubsetsBySum(set, sum);
 if (subsets.Count > 0)
 {
-    PrintInConsoleWithColor($"Следующие множества дают сумму {sum}:", ConsoleColor.DarkMagenta);
+    PrintInConsoleWithColor($"Найдены подмножества, сумма элементов которых равна {sum} ({subsets.Count} шт.):", ConsoleColor.DarkMagenta);
     Console.WriteLine();
     PrintSubsets(subsets);
 }
 else
 {
-    PrintInConsoleWithColor($"В этом множестве нет подмножеств, сумма элементов которых равна {sum}!", ConsoleColor.DarkRed);
+    PrintInConsoleWithColor($"В этом множестве нет подмножеств, сумма элементов которых равна {sum}", ConsoleColor.DarkRed);
 }
-
-//List<List<int>> result = new List<List<int>>();
 
