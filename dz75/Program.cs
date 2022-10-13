@@ -33,6 +33,24 @@ ulong GetBinomialCoefficient(int n, int m)
     ulong value = Factorial(n) / (Factorial(m) * Factorial(n - m));
     return value;
 }*/
+/* // short variant
+int[,] InitPascalTriangle(int rowCount)
+{
+    int[,] triangle = new int[rowCount, rowCount];
+    for (int i = 0; i < rowCount; i++)
+    {
+        triangle[i, 0] = 1;
+        triangle[i, i] = 1;
+    }
+    for (int i = 2; i < rowCount; i++)
+    {
+        for (int j = 1; j <= i; j++)
+        {
+            triangle[i, j] = triangle[i - 1, j - 1] + triangle[i - 1, j];
+        }
+    }
+    return triangle;
+}*/
 
 ulong GetBinomialCoefficient(int n, int m)
 {
