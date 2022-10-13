@@ -21,15 +21,16 @@ int GetNumberFromUser(string userInformation)
     return result;
 }
 
-void PrintNaturalNumbers(int maxNumber)
+void PrintNaturalNumbers(int number, int maxNumber)
 {
-    Console.Write($"N = {maxNumber} -> 1");
-    for (int i = 2; i <= maxNumber; i++)
+    Console.Write($", {number}");
+    if (number < maxNumber)
     {
-        Console.Write($", {i}");
+        PrintNaturalNumbers(number + 1, maxNumber);
     }
-    Console.WriteLine();
+    else Console.WriteLine();
 }
 
 int number = GetNumberFromUser("Введите число N");
-PrintNaturalNumbers(number);
+Console.Write($"N = {number} -> 1");
+PrintNaturalNumbers(2, number);
