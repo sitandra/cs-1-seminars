@@ -16,7 +16,7 @@ int GetNumberFromUser(string userInformation)
     PrintInConsoleWithColor($"{userInformation}: ", ConsoleColor.DarkBlue);
     while (!int.TryParse(Console.ReadLine(), out result) || result < 0)
     {
-        PrintInConsoleWithColor($"Ошибка ввода! Ожидается натуральное число больше 1. {userInformation}: ", ConsoleColor.DarkYellow); ;
+        PrintInConsoleWithColor($"Ошибка ввода! Ожидается натуральное число. {userInformation}: ", ConsoleColor.DarkYellow); ;
     }
     return result;
 }
